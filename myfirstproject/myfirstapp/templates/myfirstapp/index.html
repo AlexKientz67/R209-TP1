@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'myfirstapp/style.css' %}">
+</head>
+
+<body>
+    <form action="#" method="GET">
+        {% csrf_token %}
+        <label for="nom">Nom:</label>
+        <input type="text" name="nom" placeholder="">
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="">
+        <label for="sujet">Sujet:</label>
+        <input type="text" name="sujet" placeholder="">
+        <label for="message">Message:</label>
+        <textarea name="message" placeholder=""></textarea>
+        <input type="submit" value="Envoyer">
+    </form>
+</body>
