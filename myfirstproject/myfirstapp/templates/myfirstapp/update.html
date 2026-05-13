@@ -1,7 +1,15 @@
-<form method="POST" action="/myfirstapp/traitementupdate/{{id}}">
-
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'myfirstapp/style.css' %}">
+    <title>Bibliotheque</title>
+</head>
+<body>
+<form method="POST" action="/myfirstapp/traitementupdate/{{ livre.id }}/">
     {% csrf_token %}
     {{ form.as_ul }}
-    <input type="submit" value="Envoyer les données">
+        <input type="submit" value="Mettre à jour">
 
 </form>
+</body>

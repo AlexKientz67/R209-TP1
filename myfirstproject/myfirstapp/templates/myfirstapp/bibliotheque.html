@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'myfirstapp/style.css' %}">
+    <title>Bibliotheque</title>
+</head>
+
+<body>
+    <h1 class="titre">Liste des livres</h1>
+    <a href="../ajout">Ajouter un livre</a>
+
+    <ul>
+        {% for livre in livres %}
+            <li>
+                <h1>{{ livre.titre }} de {{ livre.auteur }}</h1>
+                <h3 class="date">{{ livre.date_parution }}</h3>
+                <p>{{ livre.resume }}</p>
+                <div class="buttons">
+                    <a class="btn" href="../delete/{{ livre.id }}">Supprimer</a>
+                    <a class="btn" href="../update/{{ livre.id }}">Modifier</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>

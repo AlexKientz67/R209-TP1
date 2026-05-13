@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import LivreForm
-from . import models
+from . import models, forms
+from .models import Livre
 
 # Create your views here.
 def index(request):
     return render(request, 'myfirstapp/index.html')
 
 def bibliotheque(request):
-    return render(request, 'myfirstapp/bibliotheque.html')
+
+    livres = Livre.objects.all()
+
+    return render(request, "myfirstapp/bibliotheque.html",{"livres":livres})
 
 def ajout(request):
     if request.method == 'POST':
@@ -34,16 +38,22 @@ def read(request, id):
     Livre = models.Livre.objects.get(pk=id)
     return render(request, "myfirstapp/affiche.html",{"Livre":Livre})
 
+def update(request, id):
+    livre = Livre.objects.get(pk=id)
+    lform = LivreForm(instance=livre)
+    return render(request, "myfirstapp/update.html",{"livre":livre,"form":lform})
+
 def traitementupdate(request, id):
-    lform=LivreForm(request.POST)
+    lform = forms.LivreForm(request.POST)
     if lform.is_valid():
-        Livre = lform.save()
+        Livre = lform.save(commit=False)
         Livre.id = id;
         Livre.save()
-        return HttpResponseRedirect("/myfirstapp/")
+        return HttpResponseRedirect("/myfirstapp/bibliotheque/")
     else:
-        return render(request, "myfirstapp/update.html",{"form":lform, "id": id})
+        return render(request, "myfirstapp/update.html",{"form":lform})
 
 def delete(request, id):
+    print(id)
     models.Livre.objects.filter(id=id).delete()
-    return HttpResponseRedirect("/myfirstapp/delete.html")
+    return render(request, "myfirstapp/delete.html")
